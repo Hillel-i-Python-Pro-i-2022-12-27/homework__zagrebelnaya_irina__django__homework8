@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.template.context_processors import csrf
 
 from apps.contacts.models import ContactForm
 from apps.contacts.models import Contacts
