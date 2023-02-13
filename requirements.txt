@@ -1,0 +1,20 @@
+# For name generation.
+faker==16.7.0
+
+# [code_style]-[BEGIN]
+# Pre-commit hook.
+pre-commit==3.0.4
+# Upgrade syntax.
+pyupgrade==3.3.1
+# Formatter. Apply codestyle.
+black==23.1.0
+# Check codestyle.
+flake8==6.0.0
+# Removes unused imports and unused variables.
+autoflake==2.0.1
+# [code_style]-[END]
+
+# Core.
+django==4.1.6
+
+django-crispy-forms~=1.14.0
