@@ -1,0 +1,11 @@
+.my-class-padding {
+    display: flex;
+    padding: 5px;
+}
+.label-class {
+    color:grey;
+}
+
+.field-class {
+    color: darkred;
+}

@@ -19,12 +19,12 @@ def create(request):
         if form.is_valid():
             form.save()
 
-            return redirect('/')
+            return redirect('contacts:list')
     else:
 
         form = ContactForm()
 
-        return render(request, 'contacts/create.html', {'form': form})
+        return render(request, 'contacts/form.html', {'form': form})
 
 
 def edit(request, pk):
@@ -33,18 +33,17 @@ def edit(request, pk):
         form = ContactForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect('contacts:list')
         else:
             form = ContactForm(instance=obj)
 
     return render(request,
-                  'contacts/edit.html',
+                  'contacts/form.html',
                   {'form': form})
 
 
-def info(request):
-    uuid = int(request.POST.get('uuid'))
-    queryset = Contacts.objects.get(id=uuid)
+def info(request, pk):
+    queryset = Contacts.objects.get(id=pk)
     contacts_dict = {
         'contacts': queryset
     }
@@ -56,4 +55,4 @@ def delete(request):
     item = Contacts.objects.get(id=uuid)
     item.delete()
 
-    return redirect('/')
+    return redirect('contacts:list')
