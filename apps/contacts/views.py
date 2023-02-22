@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.core.checks import CRITICAL
 from django.shortcuts import render, redirect
 
 from apps.contacts.models import ContactForm
@@ -16,9 +18,14 @@ def create(request):
     if request.method == 'POST':
 
         form = ContactForm(request.POST)
+        if not (request.POST.get("name").isalpha()):
+            messages.add_message(request, CRITICAL, 'Name must have only letters.')
+            return redirect('contacts:create')
+        if not (request.POST.get("phone").isdigit()):
+            messages.add_message(request, CRITICAL, 'Phone must have only numbers.')
+            return redirect('contacts:create')
         if form.is_valid():
             form.save()
-
             return redirect('contacts:list')
     else:
 
