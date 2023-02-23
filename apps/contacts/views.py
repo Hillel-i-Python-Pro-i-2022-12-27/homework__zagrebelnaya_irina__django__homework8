@@ -15,7 +15,7 @@ def list_of_contacts(request):
 def create(request):
     if request.method == "POST":
         print(request.POST.get("avatar"))
-        form = ContactForm(request.POST)
+        form = ContactForm(request.POST, request.FILES)
         if not (request.POST.get("name").isalpha()):
             messages.add_message(request, CRITICAL, "Name must have only letters.")
             return redirect("contacts:create")
@@ -34,7 +34,7 @@ def create(request):
 def edit(request, pk):
     obj = Contacts.objects.get(pk=pk)
     if request.method == "POST":
-        form = ContactForm(request.POST, instance=obj)
+        form = ContactForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             form.save()
             return redirect("contacts:list")

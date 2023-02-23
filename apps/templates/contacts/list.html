@@ -21,9 +21,9 @@
   <tbody>
      {% for contact in contacts %}
     <tr>
-       <td class="my-avatar">
+       <td>
           {% if contact.avatar %}
-            <img src="{{ contact.avatar.url }}" alt="Avatar">
+            <img class="my-avatar" src="{{ contact.avatar.url }}" alt="Avatar">
           {% endif %}
        </td>
        <td>
