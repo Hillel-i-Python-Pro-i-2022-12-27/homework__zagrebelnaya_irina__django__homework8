@@ -9,6 +9,7 @@
     <table class="table">
   <thead>
     <tr>
+      <th scope="col">Avatar</th>
       <th scope="col">Name</th>
       <th scope="col">Phone</th>
       <th scope="col">Modified at</th>
@@ -20,6 +21,11 @@
   <tbody>
      {% for contact in contacts %}
     <tr>
+       <td class="my-avatar">
+          {% if contact.avatar %}
+            <img src="{{ contact.avatar.url }}" alt="Avatar">
+          {% endif %}
+       </td>
        <td>
            <a href="{% url 'contacts:info'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
        </td>

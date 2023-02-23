@@ -20,6 +20,13 @@ class Contacts(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    avatar = models.ImageField(
+        max_length=255,
+        upload_to="contacts/contact/avatar/",
+        blank=True,
+        null=True,
+    )
+
     provider = models.ForeignKey(
         Provider,
         on_delete=models.CASCADE,
@@ -38,6 +45,4 @@ class Contacts(models.Model):
 class ContactForm(ModelForm):
     class Meta:
         model = Contacts
-        fields = ['name', 'phone', 'provider']
-
-
+        fields = ["avatar", "name", "phone", "provider"]

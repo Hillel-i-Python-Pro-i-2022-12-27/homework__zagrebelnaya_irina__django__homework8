@@ -2,6 +2,11 @@
 {% extends '_helpers/_base.html' %}
 {% block content %}
     <ul class="list-group">
+      <li>
+        {% if contacts.avatar %}
+            <img src="{{ contacts.avatar.url }}" alt="Avatar">
+        {% endif %}
+     </li>
        <li class="list-group-item">
            <label class="label-class">Name:</label>
           <span class="field-class"> {{ contacts.name }}</span>

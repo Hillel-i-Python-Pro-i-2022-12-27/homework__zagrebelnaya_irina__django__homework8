@@ -12,3 +12,7 @@
 .my-color{
     color:red;
 }
+.my-avatar > img {
+    width: 2em;
+    height: 2em;
+}
