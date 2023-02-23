@@ -1,52 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>List of contacts</title>
-</head>
-<body style="padding: 20px;">
-  <a href="{% url 'contacts:create'%}">Create contact</a>
 
-<table style="width: 100%">
-    <tr>
-        <td>Name</td><td>Phone</td><td>Modified at</td>
-    </tr>
-            <tr>
-                <td>
-                    <span>{{ contacts.name }}</span>
-                </td>
-                <td>
-                    <span>{{ contacts.phone }}</span>
-                </td>
-                <td>
-                    <span>{{ contacts.modified_at }}</span>
-                </td>
-                 <td>
-                <form action="/" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="Back">
-                </form>
-                 </td>
-                <td>
-                <form action="/edit/{{ contacts.id }}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="uuid" value="{{ contacts.id }}"/>
-                    <input type="submit" value="Edit">
-                </form>
-                </td>
-                 <td>
-                   <form action="/delete/" method="post">
-                       {% csrf_token %}
-                        <input type="hidden" name="uuid" value="{{contacts.id}}" />
-                       <input type="submit" value="Delete">
-			        </form>
-                </td>
-            </tr>
-
-
-
-</table>
-</body>
-</html>
+{% extends '_helpers/_base.html' %}
+{% block content %}
+    <ul class="list-group">
+       <li class="list-group-item">
+           <label class="label-class">Name:</label>
+          <span class="field-class"> {{ contacts.name }}</span>
+       </li>
+        <li class="list-group-item">
+             <label  class="label-class">Phone:</label>
+            <span  class="field-class"> {{ contacts.phone }}</span>
+        </li>
+          <li class="list-group-item">
+             <label  class="label-class">Provider:</label>
+            <span  class="field-class"> {{ contacts.provider }}</span>
+        </li>
+        <li class="list-group-item">
+              <label  class="label-class">Modified at:</label>
+            <span  class="field-class">{{ contacts.modified_at }}</span>
+        </li>
+    </ul>
+    <div class="my-class-padding">
+        <a href="{% url 'contacts:list'%}"><button class="btn-primary">Back</button></a>
+    </div>
+{% endblock %}

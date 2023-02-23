@@ -10,27 +10,35 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import string
 from pathlib import Path
+
+# noinspection PyUnresolvedReferences
+import environ
+from django.utils.crypto import get_random_string
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR.joinpath("apps")
 
+env = environ.Env()
+env.read_env(BASE_DIR.joinpath(".env"))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-v-^@6o8g8zg+%h(3z97!bc1=2^7amp6rf1+hwh8r6a+t!jn*uk"
+SECRET_KEY = env.str(
+    "DJANGO__SECRET_KEY",
+    get_random_string(64, "".join([string.ascii_letters, string.digits, string.punctuation])),
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DJANGO__DEBUG", True)
 
-ALLOWED_HOSTS = [
-    "localhost",
-    "0.0.0.0",
-    "127.0.0.1",
-    "127.0.1.1",
-]
+ALLOWED_HOSTS = env.list("DJANGO__ALLOWED_HOSTS", default=[])
+if DEBUG:
+    ALLOWED_HOSTS.extend(["localhost", "0.0.0.0", "127.0.0.1", "127.0.1.1"])
 
 # Application definition
 
@@ -40,15 +48,15 @@ DJANGO_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = [
-    "apps.base",
-    "apps.contacts",
-    'crispy_forms',
-]
+LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users"]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "crispy_forms",
+    "crispy_bootstrap5",
+]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
@@ -61,6 +69,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
 
 ROOT_URLCONF = "core.urls"
 
@@ -80,7 +89,11 @@ TEMPLATES = [
     },
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 WSGI_APPLICATION = "core.wsgi.application"
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -125,6 +138,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static"
+
+STATICFILES_DIRS = [
+    APPS_DIR / "static",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

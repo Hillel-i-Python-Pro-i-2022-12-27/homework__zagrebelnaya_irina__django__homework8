@@ -1,54 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>List of contacts</title>
-</head>
-<body style="padding: 20px;">
-     <a href="{% url 'contacts:create'%}">Create contact</a>
-<table style="width: 100%">
+
+{% extends '_helpers/_base.html' %}
+{% block content %}
+  <a href="{% url 'contacts:create' %}">
+        <button class="btn btn-success">
+            Create contact
+        </button>
+  </a>
+    <table class="table">
+  <thead>
     <tr>
-        <td>Name</td><td>Phone</td><td>Modified at</td>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Modified at</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
+  </thead>
+  <tbody>
      {% for contact in contacts %}
-            <tr>
-                <td>
-                    <span>{{ contact.name }}</span>
-                </td>
-                <td>
-                    <span>{{ contact.phone }}</span>
-                </td>
-                <td>
-                    <span>{{ contact.modified_at }}</span>
-                </td>
-                 <td>
-                <form action="/info/" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="uuid" value="{{ contact.id }}"/>
-                    <input type="submit" value="Info">
-                </form>
-                 </td>
-                <td>
-                <form action="/edit/{{ contact.id }}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="uuid" value="{{ contact.id }}"/>
-                    <input type="submit" value="Edit">
-                </form>
-                </td>
-                 <td>
-                   <form action="/delete/" method="post">
-                       {% csrf_token %}
-                        <input type="hidden" name="uuid" value="{{contact.id}}" />
-                       <input type="submit" value="Delete">
-			        </form>
-                </td>
-            </tr>
+    <tr>
+       <td>
+           <a href="{% url 'contacts:info'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
+       </td>
+        <td>
+            <span>{{ contact.phone }}</span>
+        </td>
+        <td>
+            <span>{{ contact.modified_at }}</span>
+        </td>
+        <td>
+        <form action="/edit/{{ contact.id }}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="uuid" value="{{ contact.id }}"/>
+            <input type="submit" class="btn btn-primary" value="Edit">
+        </form>
+        </td>
+         <td>
+           <form action="/delete/" method="post">
+               {% csrf_token %}
+                <input type="hidden" name="uuid" value="{{contact.id}}" />
+               <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+        </td>
+    </tr>
+
      {% endfor %}
-
-
-
+  </tbody>
 </table>
-</body>
-</html>
+{% endblock %}
