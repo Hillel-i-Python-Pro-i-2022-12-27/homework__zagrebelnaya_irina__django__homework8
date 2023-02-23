@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ModelForm
 
 
 class Provider(models.Model):
@@ -14,7 +13,7 @@ class Provider(models.Model):
     __repr__ = __str__
 
 
-class Contacts(models.Model):
+class Contact(models.Model):
     name = models.CharField(max_length=100, unique=True)
     phone = models.CharField(max_length=13, unique=True)
 
@@ -40,9 +39,3 @@ class Contacts(models.Model):
         return f"{self.name} - {self.phone}"
 
     __repr__ = __str__
-
-
-class ContactForm(ModelForm):
-    class Meta:
-        model = Contacts
-        fields = ["avatar", "name", "phone", "provider"]

@@ -2,29 +2,28 @@ from django.contrib import messages
 from django.core.checks import CRITICAL
 from django.shortcuts import render, redirect
 
-from apps.contacts.models import ContactForm
-from apps.contacts.models import Contacts
+from apps.contacts.forms import ContactForm
+from apps.contacts.models import Contact
 
 
 def list_of_contacts(request):
-    queryset = Contacts.objects.all()
+    queryset = Contact.objects.all()
     contacts_dict = {"contacts": queryset}
     return render(request, "contacts/list.html", contacts_dict)
 
 
 def create(request):
     if request.method == "POST":
-        print(request.POST.get("avatar"))
         form = ContactForm(request.POST, request.FILES)
         if not (request.POST.get("name").isalpha()):
             messages.add_message(request, CRITICAL, "Name must have only letters.")
-            return redirect("contacts:create")
+            return redirect("contacts:create_contact")
         if not (request.POST.get("phone").isdigit()):
             messages.add_message(request, CRITICAL, "Phone must have only numbers.")
-            return redirect("contacts:create")
+            return redirect("contacts:create_contact")
         if form.is_valid():
             form.save()
-            return redirect("contacts:list")
+            return redirect("contacts:list_contact")
     else:
         form = ContactForm()
 
@@ -32,12 +31,12 @@ def create(request):
 
 
 def edit(request, pk):
-    obj = Contacts.objects.get(pk=pk)
+    obj = Contact.objects.get(pk=pk)
     if request.method == "POST":
         form = ContactForm(request.POST, request.FILES, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect("contacts:list")
+            return redirect("contacts:list_contact")
         else:
             form = ContactForm(instance=obj)
 
@@ -45,14 +44,14 @@ def edit(request, pk):
 
 
 def info(request, pk):
-    queryset = Contacts.objects.get(id=pk)
+    queryset = Contact.objects.get(id=pk)
     contacts_dict = {"contacts": queryset}
     return render(request, "contacts/info.html", contacts_dict)
 
 
 def delete(request):
     uuid = int(request.POST.get("uuid"))
-    item = Contacts.objects.get(id=uuid)
+    item = Contact.objects.get(id=uuid)
     item.delete()
 
-    return redirect("contacts:list")
+    return redirect("contacts:list_contact")

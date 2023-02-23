@@ -1,7 +1,7 @@
 
 {% extends '_helpers/_base.html' %}
 {% block content %}
-  <a href="{% url 'contacts:create' %}">
+  <a href="{% url 'contacts:create_contact' %}">
         <button class="btn btn-success">
             Create contact
         </button>
@@ -15,7 +15,6 @@
       <th scope="col">Modified at</th>
       <th scope="col"></th>
       <th scope="col"></th>
-      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -27,7 +26,7 @@
           {% endif %}
        </td>
        <td>
-           <a href="{% url 'contacts:info'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
+           <a href="{% url 'contacts:info_contact'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
        </td>
         <td>
             <span>{{ contact.phone }}</span>

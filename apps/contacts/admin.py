@@ -4,7 +4,7 @@ from django.contrib import admin
 from . import models
 
 
-@admin.register(models.Contacts)
+@admin.register(models.Contact)
 class ContactsAdmin(admin.ModelAdmin):
     list_display = (
         "name",
@@ -20,7 +20,7 @@ class ContactsAdmin(admin.ModelAdmin):
 
 
 class ContactsInline(admin.TabularInline):
-    model = models.Contacts
+    model = models.Contact
 
 
 @admin.register(models.Provider)
