@@ -15,7 +15,7 @@ make d-homework-i-run
 
 ### 🚮 Purge
 
-Make all actions needed for run homework from zero.
+Make all actions needed for delete homework.
 
 ```shell
 make d-homework-i-purge
