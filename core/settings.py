@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 APPS_DIR = BASE_DIR.joinpath("apps")
@@ -31,8 +32,6 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "127.0.1.1",
 ]
-# Application definition
-
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,7 +41,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = ["apps.base", "apps.contacts"]
+LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users"]
 
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -63,6 +62,8 @@ MIDDLEWARE = [
 
 
 ROOT_URLCONF = "core.urls"
+
+AUTH_USER_MODEL = "users.User"
 
 TEMPLATES = [
     {
@@ -134,6 +135,9 @@ STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = [
     APPS_DIR / "static",
 ]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

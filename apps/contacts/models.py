@@ -1,5 +1,4 @@
 from django.db import models
-from django.forms import ModelForm
 
 
 class Provider(models.Model):
@@ -14,12 +13,19 @@ class Provider(models.Model):
     __repr__ = __str__
 
 
-class Contacts(models.Model):
+class Contact(models.Model):
     name = models.CharField(max_length=100, unique=True)
     phone = models.CharField(max_length=13, unique=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    avatar = models.ImageField(
+        max_length=255,
+        upload_to="contacts/contact/avatar/",
+        blank=True,
+        null=True,
+    )
+
     provider = models.ForeignKey(
         Provider,
         on_delete=models.CASCADE,
@@ -33,9 +39,3 @@ class Contacts(models.Model):
         return f"{self.name} - {self.phone}"
 
     __repr__ = __str__
-
-
-class ContactForm(ModelForm):
-    class Meta:
-        model = Contacts
-        fields = ["name", "phone", "provider"]

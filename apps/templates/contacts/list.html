@@ -1,7 +1,7 @@
 
 {% extends '_helpers/_base.html' %}
 {% block content %}
-  <a href="{% url 'contacts:create' %}">
+  <a href="{% url 'contacts:create_contact' %}">
         <button class="btn btn-success">
             Create contact
         </button>
@@ -9,10 +9,10 @@
     <table class="table">
   <thead>
     <tr>
+      <th scope="col">Avatar</th>
       <th scope="col">Name</th>
       <th scope="col">Phone</th>
       <th scope="col">Modified at</th>
-      <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -21,7 +21,12 @@
      {% for contact in contacts %}
     <tr>
        <td>
-           <a href="{% url 'contacts:info'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
+          {% if contact.avatar %}
+            <img class="my-avatar" src="{{ contact.avatar.url }}" alt="Avatar">
+          {% endif %}
+       </td>
+       <td>
+           <a href="{% url 'contacts:info_contact'  pk=contact.id%}"><span>{{ contact.name }}</span></a>
        </td>
         <td>
             <span>{{ contact.phone }}</span>
