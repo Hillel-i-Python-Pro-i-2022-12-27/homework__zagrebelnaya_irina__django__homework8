@@ -14,7 +14,18 @@ d-homework-i-purge:
 # Just run
 d-run:
 	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
-		docker-compose up --build
+		COMPOSE_PROFILES=full_dev \
+		docker-compose up \
+			--build
+
+.PHONY: d-run-i-local-dev
+# Just run
+d-run-i-local-dev:
+	@COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 \
+		COMPOSE_PROFILES=local_dev \
+		docker-compose \
+			up --build
+
 
 .PHONY: d-stop
 # Stop services
@@ -39,7 +50,8 @@ init-dev:
 .PHONY: init-config-i-homework
 # Init configs for homework
 init-config-i-homework:
-	@cp docker-compose.override.hw.yml docker-compose.override.yml
+	@cp .env.homework .env &&\
+		cp docker-compose.override.homework.yml docker-compose.override.yml
 
 .PHONY: homework-i-run
 # Run homework.
@@ -77,4 +89,3 @@ migrate:
 # Create superuser
 init-dev-i-create-superuser:
 	@DJANGO_SUPERUSER_PASSWORD=admin123 python manage.py createsuperuser --user admin --email admin@gmail.com --no-input
-
