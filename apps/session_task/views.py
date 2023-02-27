@@ -19,20 +19,15 @@ class SessionTaskView(TemplateView):
         count_of_visits += 1
         session[KEY__COUNT_OF_VISITS] = count_of_visits
 
-        now = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        session_visit_now = session.get(KEY__DATE_OF_VISIT_NOW, now)
-        previous_date_of_visits = session_visit_now
-        session_visit_now = now
-
-        session[KEY__DATE_OF_VISIT_NOW] = session_visit_now
-        session[KEY__PREVIOUS_DATE_OF_VISITS] = previous_date_of_visits
+        session[KEY__PREVIOUS_DATE_OF_VISITS] = session.get(KEY__DATE_OF_VISIT_NOW)
+        session[KEY__DATE_OF_VISIT_NOW] = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         context = super().get_context_data(**kwargs)
         # используется в базовом шаблоне apps/templates/_helpers/_base.html
         context["title"] = "Session task"
         #
         context["session_id"] = session.session_key
-        context["session_visit_now"] = session_visit_now
+        context["session_visit_now"] = session[KEY__DATE_OF_VISIT_NOW]
         context["previous_date_of_visits"] = session[KEY__PREVIOUS_DATE_OF_VISITS]
         context["count_of_visits"] = count_of_visits
         return context
