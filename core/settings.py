@@ -55,7 +55,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users"]
+LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users", "apps.session_task"]
 
 THIRD_PARTY_APPS = [
     "crispy_forms",
