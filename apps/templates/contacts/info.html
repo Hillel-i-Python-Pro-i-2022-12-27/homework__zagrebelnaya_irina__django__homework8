@@ -1,6 +1,7 @@
 
 {% extends '_helpers/_base.html' %}
 {% block content %}
+    {% if user.is_authenticated %}
     <ul class="list-group">
       <li>
         {% if contacts.avatar %}
@@ -27,4 +28,7 @@
     <div class="my-class-padding">
         <a href="{% url 'contacts:list_contact'%}"><button class="btn-primary">Back</button></a>
     </div>
+    {% else %}
+        <h1>You should login or register to  see all staff!!</h1>
+    {% endif %}
 {% endblock %}

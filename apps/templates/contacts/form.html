@@ -1,7 +1,7 @@
 {% extends '_helpers/_base.html' %}
 {% load crispy_forms_tags %}
-
 {% block content %}
+    {% if user.is_authenticated %}
     <h1>Create/Edit contact</h1>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -17,4 +17,7 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    {% else %}
+        <h1>You should login or register to  see all staff!!</h1>
+    {% endif %}
 {% endblock %}

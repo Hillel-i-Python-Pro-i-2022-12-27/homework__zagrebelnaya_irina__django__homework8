@@ -62,3 +62,27 @@ Purge all data related with services
 ```shell
 make d-purge
 ```
+
+## 🗄 DataBase
+```shell
+make d-run-i-local-dev
+```
+### 🧳Make migration
+```shell
+make migrations
+```
+### 🛫Migrate
+```shell
+make migrate
+```
+***
+## 🐳SuperUser
+### 🔩Create
+```shell
+make init-dev-i-create-superuser
+```
+### 🗑️Delete
+```shell
+make init-dev-i-delete-superuser
+```
+***
