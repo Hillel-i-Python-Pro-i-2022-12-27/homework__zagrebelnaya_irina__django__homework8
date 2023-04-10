@@ -1,0 +1,16 @@
+{% extends '_helpers/_base.html' %}
+
+{% block content %}
+    <div>
+    {% if  session_id  %}
+        <p>Session ID: {{ session_id }}</p>
+    {% else %}
+        <p>It's your first visit!!</p>
+    {% endif %}
+        <p>Now: {{ session_visit_now }}</p>
+    {% if  previous_date_of_visits  %}
+        <p>Previous date: {{ previous_date_of_visits }}</p>
+    {% endif %}
+        <p>Counter of visits: {{ count_of_visits }}</p>
+    </div>
+{% endblock %}
