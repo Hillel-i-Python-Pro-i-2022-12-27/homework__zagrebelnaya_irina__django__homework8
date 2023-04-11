@@ -109,3 +109,7 @@ init-dev-i-create-superuser:
 # Delete superuser
 init-dev-i-delete-superuser:
 	@python manage.py delete_superuser
+
+.PHONY: django-i-delete-logs
+django-i-delete-logs:
+	@python manage.py delete_logs --delete-all-logs

@@ -17,6 +17,17 @@
              <li class="nav-item">
                 <a class="nav-link" href="{% url 'session_task:index' %}">Session task</a>
             </li>
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url "logs:list" %}">Logs</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                    <a class="nav-link"  href="{% url "logs:list_for_user" username=user.id %}">Logs For User</a>
+                </li>
+            <li class="nav-item">
+                 <a class="nav-link" href="{% url "logs:list_for_session" %}">Logs For Session</a>
+            </li>
+           {% endif %}
         </ul>
         <ul class="navbar-nav">
             <div class="right">

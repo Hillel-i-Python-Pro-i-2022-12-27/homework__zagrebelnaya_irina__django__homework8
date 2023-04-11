@@ -11,6 +11,7 @@ urlpatterns = [
     path("session-task/", include("apps.session_task.urls")),
     path("", include("apps.contacts.urls")),
     path("", include("apps.users.urls_root")),
+    path("logs/", include("apps.middleware_requests_logging.urls")),
 ]
 #
 if settings.DEBUG:
