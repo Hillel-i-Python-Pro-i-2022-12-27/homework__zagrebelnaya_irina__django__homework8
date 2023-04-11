@@ -9,12 +9,29 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'contacts:create_contact' %}">Create contacts</a>
             </li>
+            {% if user.is_superuser %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
             </li>
+            {% endif %}
              <li class="nav-item">
                 <a class="nav-link" href="{% url 'session_task:index' %}">Session task</a>
             </li>
+        </ul>
+        <ul class="navbar-nav">
+            <div class="right">
+            {% if user.is_authenticated %}
+            <div>
+                <p>{{ user.username }}</p>
+                </div>
+                    <a type="button" class="btn btn-warning" href="{% url "logout" %}">Log Out</a>
+                    <a type="button" class="btn btn-primary" href="{% url "users:details" pk=user.id %}">Details</a>
+            {% else %}
+                <p>Gest</p>
+                <a type="button" class="btn btn-primary" href="{% url "login" %}">LogIn</a>
+                <a type="button" class="btn btn-primary" href="{% url "users:registration" %}">Registration</a>
+            {% endif %}
+            </div>
         </ul>
     </nav>
 </header>

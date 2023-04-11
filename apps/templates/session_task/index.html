@@ -1,6 +1,6 @@
 {% extends '_helpers/_base.html' %}
-
 {% block content %}
+    {% if user.is_authenticated %}
     <div>
     {% if  session_id  %}
         <p>Session ID: {{ session_id }}</p>
@@ -13,4 +13,7 @@
     {% endif %}
         <p>Counter of visits: {{ count_of_visits }}</p>
     </div>
+    {% else %}
+        <h1>You should login or register to  see all staff!!</h1>
+    {% endif %}
 {% endblock %}

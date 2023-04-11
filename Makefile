@@ -89,3 +89,23 @@ migrate:
 # Create superuser
 init-dev-i-create-superuser:
 	@DJANGO_SUPERUSER_PASSWORD=admin123 python manage.py createsuperuser --user admin --email admin@gmail.com --no-input
+
+.PHONY: migrations
+# Make migrations
+migrations:
+	@python manage.py makemigrations
+
+.PHONY: migrate
+# Migrate
+migrate:
+	@python manage.py migrate
+
+.PHONY: init-dev-i-create-superuser
+# Create standard superuser
+init-dev-i-create-superuser:
+	@python manage.py create_superuser
+
+.PHONY: init-dev-i-delete-superuser
+# Delete superuser
+init-dev-i-delete-superuser:
+	@python manage.py delete_superuser
