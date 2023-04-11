@@ -55,7 +55,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users", "apps.session_task"]
+LOCAL_APPS = ["apps.base", "apps.contacts", "apps.users", "apps.session_task", "apps.middleware_requests_logging"]
 
 THIRD_PARTY_APPS = [
     "crispy_forms",
@@ -74,6 +74,14 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
+USE_EXTRA_MIDDLEWARE = env.bool("CUSTOM__USE_EXTRA_MIDDLEWARES", False)
+if USE_EXTRA_MIDDLEWARE:
+    MIDDLEWARE.extend(
+        [
+            "apps.middleware_requests_logging.middleware.LoggingRequestsMiddleware",
+        ]
+    )
 
 ROOT_URLCONF = "core.urls"
 

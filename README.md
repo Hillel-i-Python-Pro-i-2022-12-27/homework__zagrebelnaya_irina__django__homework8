@@ -75,7 +75,7 @@ make migrations
 ```shell
 make migrate
 ```
-***
+
 ## 🐳SuperUser
 ### 🔩Create
 ```shell
@@ -85,4 +85,8 @@ make init-dev-i-create-superuser
 ```shell
 make init-dev-i-delete-superuser
 ```
-***
+
+### Delete all  logging
+```shell
+make django-i-delete-logs
+```

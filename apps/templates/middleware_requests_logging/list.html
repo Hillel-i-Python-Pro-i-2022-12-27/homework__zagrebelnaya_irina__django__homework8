@@ -1,0 +1,58 @@
+{% extends "_helpers/_base.html" %}
+
+{% block content %}
+    <p>All Logs: {{ count_logs }}</p>
+    <table  class="table table-striped">
+        <tr>
+
+            <td>ID</td>
+            <td>Request path</td>
+            <td>User</td>
+            <td>Session id</td>
+            <td>Counter</td>
+            <td>Created time</td>
+
+        </tr>
+        {% for log in object_list %}
+            <tr>
+
+                <td>{{ log.id }}</td>
+                <td>{{ log.request_path }}</td>
+                {% if log.user %}
+                    <td>{{ log.user }}</td>
+                {% else %}
+                    <td>Gest</td>
+                {% endif %}
+                {% if log.session_id %}
+                    <td>{{ log.session_id }}</td>
+                {% else %}
+                    <td>Gest session</td>
+                {% endif %}
+                <td>{{ log.counter }}</td>
+                <td>{{ log.created_time }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+   {% if object_list.has_other_pages %}
+  <ul class="pagination">
+    {% if object_list.has_previous %}
+      <li style="margin-left: 5px"><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"  style="margin-left: 5px"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in object_list.paginator.page_range %}
+      {% if object_list.number == i %}
+        <li class="active"  style="margin-left: 5px"><span>{{ i }} <span class="sr-only"></span></span></li>
+      {% else %}
+        <li  style="margin-left: 5px"><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if object_list.has_next %}
+      <li  style="margin-left: 5px"><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"  style="margin-left: 5px"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}
